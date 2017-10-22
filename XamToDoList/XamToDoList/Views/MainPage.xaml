@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamToDoList;assembly=XamToDoList"
+             xmlns:utils="clr-namespace:XamToDoList.Utils;assembly=XamToDoList"
+             x:Class="XamToDoList.MainPage"
+             Title="Lista de Tarefas">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:InvertBooleanConverter x:Key="invert"></utils:InvertBooleanConverter>
+            <utils:TaskStatusColorConverter x:Key="statusColor"></utils:TaskStatusColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="AddTask" Icon="add.png" Order="Primary" Text="Nova Tarefa" Priority="0" Command="{Binding AddTaskCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand" 
+                Color="Black"
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"/>
+            <ListView ItemsSource="{Binding TodoList}"
+                      SelectedItem="{Binding SelectedTasks}"
+                      CachingStrategy="RecycleElement"
+                      RowHeight="40"
+                      IsVisible="{Binding IsLoading, Converter={StaticResource invert}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <BoxView
+                                    WidthRequest="5"
+                                    BackgroundColor="{Binding Done, Converter={StaticResource statusColor}}"></BoxView>
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="15"
+                                       HorizontalOptions="StartAndExpand"
+                                       HorizontalTextAlignment="Start"/>
+                                <Image
+                                    Source="hourglass.png"
+                                    IsVisible="{Binding Done, Converter={StaticResource invert}}"
+                                    HorizontalOptions="EndAndExpand"
+                                ></Image>
+                                <Image
+                                    Source="checked.png"
+                                    IsVisible="{Binding Done}"
+                                ></Image>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

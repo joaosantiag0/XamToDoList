@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamToDoList.Views.AddPage"
+             Title="Adicionar tarefa">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Adicione tarefas à sua lista"
+                   FontSize="17"
+                HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"
+                   />
+            <Label Text="Descrição da tarefa:"
+                   HorizontalOptions="Start"
+                   HorizontalTextAlignment="Start"
+                   />
+            <Entry Text="{Binding Tasks.Title}" />
+            <Button Text="Salvar"
+                    Command="{Binding SaveCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
